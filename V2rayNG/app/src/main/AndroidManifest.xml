@@ -207,13 +207,14 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver 
+        <receiver
             android:name=".receiver.MyVpnReceiver"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.v2ray.ang.START_VPN"/>
-                <action android:name="com.v2ray.ang.STOP_VPN"/>
-                <action android:name="com.v2ray.ang.RESTART_VPN"/>
+                <action android:name="com.v2ray.ang.START_VPN" />
+                <action android:name="com.v2ray.ang.STOP_VPN" />
+                <action android:name="com.v2ray.ang.RESTART_VPN" />
             </intent-filter>
         </receiver>
 
