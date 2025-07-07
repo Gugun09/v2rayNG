@@ -10,6 +10,7 @@ import com.v2ray.ang.service.V2RayServiceManager
 
 class MyVpnReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        Log.i("MyVpnReceiver", "📥 onReceive: action=${intent.action}, token=${intent.getStringExtra("token")}")
         val token = intent.getStringExtra("token")
         if (token != "abc123") {
             Log.w("MyVpnReceiver", "Token salah, akses ditolak.")

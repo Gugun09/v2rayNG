@@ -62,6 +62,7 @@ object V2RayServiceManager {
      * @param guid The GUID of the server configuration to use (optional).
      */
     fun startVService(context: Context, guid: String? = null) {
+        Log.i("V2RayServiceManager", "startVService dipanggil")
         if (guid != null) {
             MmkvManager.setSelectServer(guid)
         }
@@ -95,6 +96,7 @@ object V2RayServiceManager {
      * @param context The context from which the service is started.
      */
     private fun startContextService(context: Context) {
+        Log.d("V2RayServiceManager", "VPN sudah berjalan, skip start.")
         if (coreController.isRunning) {
             return
         }
