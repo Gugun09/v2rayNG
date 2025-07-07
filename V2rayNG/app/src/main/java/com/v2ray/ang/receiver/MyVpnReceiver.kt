@@ -17,15 +17,15 @@ class MyVpnReceiver : BroadcastReceiver() {
         }
 
         when (intent.action) {
-            "com.v2rayng.START_VPN" -> {
+            "com.v2ray.ang.START_VPN" -> {
                 Log.i("MyVpnReceiver", "Trigger START_VPN")
                 V2RayServiceManager.startVService(context)
             }
-            "com.v2rayng.STOP_VPN" -> {
+            "com.v2ray.ang.STOP_VPN" -> {
                 Log.i("MyVpnReceiver", "Trigger STOP_VPN")
                 V2RayServiceManager.stopVService(context)
             }
-            "com.v2rayng.RESTART_VPN" -> {
+            "com.v2ray.ang.RESTART_VPN" -> {
                 Log.i("MyVpnReceiver", "Trigger RESTART_VPN")
                 V2RayServiceManager.stopVService(context)
                 Handler(Looper.getMainLooper()).postDelayed({
