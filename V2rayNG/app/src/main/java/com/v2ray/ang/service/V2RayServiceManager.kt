@@ -67,6 +67,7 @@ object V2RayServiceManager {
             MmkvManager.setSelectServer(guid)
         }
         startContextService(context)
+        MessageUtil.sendMsg2Service(context, AppConfig.MSG_MEASURE_DELAY, "")
     }
 
     /**
