@@ -207,6 +207,12 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.MyVpnReceiver">
+            <intent-filter>
+                <action android:name="com.v2rayng.START_VPN"/>
+                <action android:name="com.v2rayng.STOP_VPN"/>
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".service.QSTileService"
