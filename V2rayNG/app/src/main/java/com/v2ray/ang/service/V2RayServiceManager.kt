@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.v2ray.ang.AppConfig
@@ -67,7 +69,9 @@ object V2RayServiceManager {
             MmkvManager.setSelectServer(guid)
         }
         startContextService(context)
-        MessageUtil.sendMsg2Service(context, AppConfig.MSG_MEASURE_DELAY, "")
+        Handler(Looper.getMainLooper()).postDelayed({
+            MessageUtil.sendMsg2Service(context, AppConfig.MSG_MEASURE_DELAY, "")
+        }, 3000)
     }
 
     /**
