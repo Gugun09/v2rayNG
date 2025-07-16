@@ -259,7 +259,7 @@ object NotificationService {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val builder = NotificationCompat.Builder(context, AppConfig.RAY_NG_CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_stat_v2ray)
+            .setSmallIcon(R.drawable.ic_stat_name)
             .setContentTitle(context.getString(R.string.app_name))
             .setContentText(result)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
