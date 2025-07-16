@@ -33,6 +33,10 @@ class MyVpnReceiver : BroadcastReceiver() {
                     V2RayServiceManager.startVService(context)
                 }, 2000) // delay 2 detik
             }
+            "com.v2ray.ang.PING_VPN" -> {
+                Log.i("MyVpnReceiver", "Trigger PING_VPN")
+                com.v2ray.ang.util.MessageUtil.sendMsg2Service(context, com.v2ray.ang.AppConfig.MSG_MEASURE_DELAY, "")
+            }
         }
     }
 }

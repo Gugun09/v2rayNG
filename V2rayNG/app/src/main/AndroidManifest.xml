@@ -215,6 +215,7 @@
                 <action android:name="com.v2ray.ang.START_VPN" />
                 <action android:name="com.v2ray.ang.STOP_VPN" />
                 <action android:name="com.v2ray.ang.RESTART_VPN" />
+                <action android:name="com.v2ray.ang.PING_VPN" />
             </intent-filter>
         </receiver>
 
