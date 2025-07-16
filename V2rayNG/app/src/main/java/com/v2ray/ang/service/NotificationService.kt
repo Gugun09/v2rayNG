@@ -249,4 +249,22 @@ object NotificationService {
     private fun getService(): Service? {
         return V2RayServiceManager.serviceControl?.get()?.getService()
     }
+
+    /**
+     * Show ping result in notification.
+     * @param result The ping result string to display.
+     */
+    fun showPingResult(result: String) {
+        val context = com.v2ray.ang.AngApplication.application
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val builder = NotificationCompat.Builder(context, AppConfig.RAY_NG_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_stat_v2ray)
+            .setContentTitle(context.getString(R.string.app_name))
+            .setContentText(result)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+
+        notificationManager.notify(1002, builder.build()) // 1002: ID notifikasi khusus ping
+    }
 }
