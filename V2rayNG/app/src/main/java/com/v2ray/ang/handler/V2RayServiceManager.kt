@@ -265,7 +265,7 @@ object V2RayServiceManager {
             MessageUtil.sendMsg2UI(service, AppConfig.MSG_MEASURE_DELAY_SUCCESS, result)
 
             // Tampilkan hasil ping di notifikasi
-            // NotificationService.showPingResult(result)
+            NotificationManager.showPingResult(result)
 
             // Only fetch IP info if the delay test was successful
             if (time >= 0) {
