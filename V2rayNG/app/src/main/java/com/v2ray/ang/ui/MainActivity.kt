@@ -687,7 +687,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 Intent(this, SettingsActivity::class.java)
                     .putExtra("isRunning", mainViewModel.isRunning.value == true)
             )
-
+            
+            R.id.nav_api_key -> startActivity(Intent(this, ApiKeyActivity::class.java))
             R.id.promotion -> Utils.openUri(this, "${Utils.decode(AppConfig.APP_PROMOTION_URL)}?t=${System.currentTimeMillis()}")
             R.id.logcat -> startActivity(Intent(this, LogcatActivity::class.java))
             R.id.check_for_update -> startActivity(Intent(this, CheckUpdateActivity::class.java))

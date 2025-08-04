@@ -24,6 +24,10 @@
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings_24dp"
             android:title="@string/title_settings" />
+        <item
+            android:id="@+id/nav_api_key"
+            android:title="@string/title_api_key"
+            android:icon="@drawable/ic_key_24dp" />
     </group>
 
     <group android:id="@+id/group_id2">

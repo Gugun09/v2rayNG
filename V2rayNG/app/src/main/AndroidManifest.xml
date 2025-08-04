@@ -76,6 +76,9 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+        <activity 
+            android:name=".ui.ApiKeyActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.ServerActivity"
             android:exported="false"
