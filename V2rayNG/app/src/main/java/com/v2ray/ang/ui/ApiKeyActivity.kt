@@ -1,4 +1,4 @@
-package com.github.v2ray.ng.ui
+package com.v2ray.ang.ui
 
 import android.content.Context
 import android.os.Bundle
