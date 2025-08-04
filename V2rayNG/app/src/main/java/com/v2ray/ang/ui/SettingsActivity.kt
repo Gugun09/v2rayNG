@@ -18,7 +18,7 @@ import com.v2ray.ang.AppConfig.VPN
 import com.v2ray.ang.R
 import com.v2ray.ang.extension.toLongEx
 import com.v2ray.ang.handler.MmkvManager
-import com.v2ray.ang.service.SubscriptionUpdater
+import com.v2ray.ang.handler.SubscriptionUpdater
 import com.v2ray.ang.util.Utils
 import com.v2ray.ang.viewmodel.SettingsViewModel
 import java.util.concurrent.TimeUnit
@@ -242,7 +242,8 @@ class SettingsActivity : BaseActivity() {
                 AppConfig.PREF_DOUBLE_COLUMN_DISPLAY,
                 AppConfig.PREF_PREFER_IPV6,
                 AppConfig.PREF_PROXY_SHARING,
-                AppConfig.PREF_ALLOW_INSECURE
+                AppConfig.PREF_ALLOW_INSECURE,
+                AppConfig.PREF_USE_HEV_TUNNEL
             ).forEach { key ->
                 findPreference<CheckBoxPreference>(key)?.isChecked =
                     MmkvManager.decodeSettingsBool(key, false)
