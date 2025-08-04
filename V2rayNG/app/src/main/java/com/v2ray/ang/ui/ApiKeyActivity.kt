@@ -4,8 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.github.v2ray.ng.R
+import com.v2ray.ang.R
 
 class ApiKeyActivity : AppCompatActivity() {
 
@@ -23,8 +24,16 @@ class ApiKeyActivity : AppCompatActivity() {
         editApiKey.setText(sharedPref.getString("api_key", ""))
 
         btnSave.setOnClickListener {
-            sharedPref.edit().putString("api_key", editApiKey.text.toString()).apply()
-            finish() // close activity after saving
+            val inputKey = editApiKey.text.toString().trim()
+
+            if (inputKey.isEmpty()) {
+                Toast.makeText(this, "API Key tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            sharedPref.edit().putString("api_key", inputKey).apply()
+            Toast.makeText(this, "API Key berhasil disimpan", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }
