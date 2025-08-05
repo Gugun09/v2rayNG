@@ -416,19 +416,22 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun syncConfigFromApiKey() {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val apiKey = sharedPreferences.getString("api_key", null)
+        val sharedPref = getSharedPreferences("v2ray_settings", Context.MODE_PRIVATE)
+        val apiKey = sharedPref.getString("api_key", null)
 
         if (apiKey.isNullOrEmpty()) {
-            toast("API Key belum diatur.")
+            toast("❌ API Key belum diatur.")
             return
         }
 
         val url = "https://your-backend-url.com/api/config?api_key=$apiKey"
 
+        toast("🔄 Menyinkronkan konfigurasi...")
+
         Thread {
+            var connection: HttpURLConnection? = null
             try {
-                val connection = URL(url).openConnection() as HttpURLConnection
+                connection = URL(url).openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.connectTimeout = 5000
                 connection.readTimeout = 5000
@@ -437,28 +440,32 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     val response = connection.inputStream.bufferedReader().use { it.readText() }
 
-                    // Proses import config di UI thread
                     runOnUiThread {
                         try {
+                            if (response.isNullOrEmpty()) {
+                                toast("⚠️ Konfigurasi kosong.")
+                                return@runOnUiThread
+                            }
+
                             importBatchConfig(response)
-                            toast("Konfigurasi berhasil disinkronkan.")
+                            toast("✅ Konfigurasi berhasil disinkronkan.")
                         } catch (e: Exception) {
-                            Log.e(AppConfig.TAG, "Gagal import konfigurasi dari API", e)
-                            toast("Format konfigurasi tidak valid.")
+                            Log.e(AppConfig.TAG, "❌ Gagal import konfigurasi dari API", e)
+                            toast("❌ Format konfigurasi tidak valid.")
                         }
                     }
                 } else {
                     runOnUiThread {
-                        toast("Gagal mengunduh konfigurasi. Code: $responseCode")
+                        toast("❌ Gagal mengunduh konfigurasi. Kode: $responseCode")
                     }
                 }
-
-                connection.disconnect()
             } catch (e: Exception) {
-                Log.e(AppConfig.TAG, "Error saat sinkronisasi konfigurasi", e)
+                Log.e(AppConfig.TAG, "❌ Error saat sinkronisasi konfigurasi", e)
                 runOnUiThread {
-                    toast("Terjadi kesalahan saat sinkronisasi.")
+                    toast("❌ Terjadi kesalahan saat sinkronisasi.")
                 }
+            } finally {
+                connection?.disconnect()
             }
         }.start()
     }
