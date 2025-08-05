@@ -17,6 +17,13 @@ class ApiKeyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_api_key)
 
+        // Setup Toolbar
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        // Setup UI
         editApiKey = findViewById(R.id.edit_api_key)
         btnSave = findViewById(R.id.btn_save_api_key)
 
@@ -35,5 +42,10 @@ class ApiKeyActivity : AppCompatActivity() {
             Toast.makeText(this, "API Key berhasil disimpan", Toast.LENGTH_SHORT).show()
             finish()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }
