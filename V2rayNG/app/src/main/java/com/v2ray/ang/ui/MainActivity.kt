@@ -292,27 +292,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
 
-        val searchItem = menu.findItem(R.id.search_view)
-        if (searchItem != null) {
-            val searchView = searchItem.actionView as SearchView
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean = false
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    mainViewModel.filterConfig(newText.orEmpty())
-                    return false
-                }
-            })
-
-            searchView.setOnCloseListener {
-                mainViewModel.filterConfig("")
-                false
-            }
-        }
-        return super.onCreateOptionsMenu(menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.menu_sync_config -> {
+            syncConfigFromApiKey()
+            true
+        }
+
         R.id.import_qrcode -> {
             importQRcode()
             true
@@ -422,6 +410,54 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
         else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun syncConfigFromApiKey() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val apiKey = sharedPreferences.getString("api_key", null)
+
+        if (apiKey.isNullOrEmpty()) {
+            toast("API Key belum diatur.")
+            return
+        }
+
+        val url = "https://your-backend-url.com/api/config?api_key=$apiKey"
+
+        Thread {
+            try {
+                val connection = URL(url).openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.connectTimeout = 5000
+                connection.readTimeout = 5000
+
+                val responseCode = connection.responseCode
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    val response = connection.inputStream.bufferedReader().use { it.readText() }
+
+                    // Proses import config di UI thread
+                    runOnUiThread {
+                        try {
+                            importBatchConfig(response)
+                            toast("Konfigurasi berhasil disinkronkan.")
+                        } catch (e: Exception) {
+                            Log.e(AppConfig.TAG, "Gagal import konfigurasi dari API", e)
+                            toast("Format konfigurasi tidak valid.")
+                        }
+                    }
+                } else {
+                    runOnUiThread {
+                        toast("Gagal mengunduh konfigurasi. Code: $responseCode")
+                    }
+                }
+
+                connection.disconnect()
+            } catch (e: Exception) {
+                Log.e(AppConfig.TAG, "Error saat sinkronisasi konfigurasi", e)
+                runOnUiThread {
+                    toast("Terjadi kesalahan saat sinkronisasi.")
+                }
+            }
+        }.start()
     }
 
     private fun importManually(createConfigType: Int) {

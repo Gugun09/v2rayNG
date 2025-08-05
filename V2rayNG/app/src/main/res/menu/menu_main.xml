@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/sync_config"
+        android:id="@+id/menu_sync_config"
         android:icon="@drawable/ic_sync"
         android:title="@string/menu_item_sync_config"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:icon="@drawable/ic_add_24dp"
         android:title="@string/menu_item_add_config"
