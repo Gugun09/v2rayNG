@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".ApiKeyActivity">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <EditText
+        android:id="@+id/edit_api_key"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="API Key"
-        app:titleTextColor="@android:color/white" />
+        android:layout_height="wrap_content"
+        android:hint="Enter your API key"
+        android:inputType="text" />
 
-    <!-- Konten -->
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_save_api_key"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="24dp">
-
-        <EditText
-            android:id="@+id/edit_api_key"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your API key"
-            android:inputType="text" />
-
-        <Button
-            android:id="@+id/btn_save_api_key"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:layout_marginTop="16dp" />
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_marginTop="16dp" />
 </LinearLayout>
