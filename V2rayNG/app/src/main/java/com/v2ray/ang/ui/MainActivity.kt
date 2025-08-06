@@ -425,7 +425,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             return
         }
 
-        val url = "https://your-backend-url.com/api/config?api_key=$apiKey"
+        val url = "https://v2ray-api.vercel.app/sync?api_key=$apiKey"
 
         toast("🔄 Menyinkronkan konfigurasi...")
 
